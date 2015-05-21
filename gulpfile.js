@@ -127,6 +127,17 @@ gulp.task('default', ['clean'], function () {
   gulp.start('build');
 });
 
+gulp.task("e2e", function () {
+  gulp.src([
+        "./e2e/test.e2e.js"
+      ])
+      .pipe($.protractor.protractor({
+          configFile: "./e2e/e2e.conf.js",
+          args: ["--baseUrl", "http://localhost:9000/"]
+      }))
+      .on("error", function(e) { throw e; });
+});
+
 gulp.task("test", [], function () {
   var testFiles = [
     "app/scripts/main.js",
